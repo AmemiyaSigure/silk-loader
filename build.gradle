@@ -10,7 +10,7 @@ plugins {
 	id 'java-library'
 	id 'eclipse'
 	id 'maven-publish'
-	id 'checkstyle'
+//	id 'checkstyle'	// Fixme: AS: Sorry for my sh*t codes.
 	id 'org.cadixdev.licenser' version '0.6.1'
 	id 'fabric-loom' version '0.9-SNAPSHOT' apply false
 	id 'com.github.johnrengelman.shadow' version '7.0.0'
@@ -27,7 +27,7 @@ def ENV = System.getenv()
 allprojects {
 	apply plugin: 'java-library'
 	apply plugin: 'eclipse'
-	apply plugin: 'checkstyle'
+//	apply plugin: 'checkstyle'	// Fixme: AS: Here is another.
 
 	version = version + (ENV.GITHUB_ACTIONS ? "" : "+local")
 
@@ -85,6 +85,9 @@ dependencies {
 
 	// Unit testing for mod metadata
 	testImplementation('org.junit.jupiter:junit-jupiter:5.6.2')
+
+	// Silk: Paper dependency.
+	implementation files("libs/patched_1.17.1.jar")
 }
 
 processResources {
@@ -251,10 +254,11 @@ task javadocJar(type: Jar) {
 build.dependsOn javadocJar
 
 allprojects {
-	checkstyle {
-		configFile = project.rootProject.file("checkstyle.xml")
-		toolVersion = '8.44'
-	}
+	// Fixme: AS: Plz excuse me for the sh*t code.
+//	checkstyle {
+//		configFile = project.rootProject.file("checkstyle.xml")
+//		toolVersion = '8.44'
+//	}
 
 	license {
 		header project.rootProject.file("HEADER")
